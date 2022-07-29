@@ -63,15 +63,16 @@ def phase2_page_handler(dt):
             assert isinstance(data, str)
         else:
             data = None
-        try:
-            ret = _global_page_handler(model, title, data)
-            return True, title, start_t, ret
-        except Exception as e:
-            lst = traceback.format_exception(type(e), value=e,
-                                             tb=e.__traceback__)
-            msg = ("=== EXCEPTION while parsing page \"{}\":\n".format(title) +
-                   "".join(lst))
-            return False, title, start_t, msg
+        # TODO: traceback.format_exception doesn't give full backtrace
+        # try:
+        ret = _global_page_handler(model, title, data)
+        return True, title, start_t, ret
+        # except Exception as e:
+        #     lst = traceback.format_exception(type(e), value=e,
+        #                                      tb=e.__traceback__)
+        #     msg = ("=== EXCEPTION while parsing page \"{}\":\n".format(title) +
+        #            "".join(lst))
+        #     return False, title, start_t, msg
 
     finally:
         if debug_hangs:
